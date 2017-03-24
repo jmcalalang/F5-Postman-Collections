@@ -18,7 +18,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -52,7 +52,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -86,7 +86,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -120,7 +120,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -160,7 +160,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -186,7 +186,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -212,7 +212,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "admin",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -238,7 +238,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "admin",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -278,7 +278,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -304,7 +304,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -333,7 +333,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
@@ -365,7 +365,7 @@
 							"type": "basic",
 							"basic": {
 								"username": "admin",
-								"password": "password",
+								"password": "",
 								"saveHelperData": true,
 								"showPassword": false
 							}
