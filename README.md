@@ -1,3 +1,3 @@
-# Randon Postman Collections
+# Random Postman Collections
 
 
