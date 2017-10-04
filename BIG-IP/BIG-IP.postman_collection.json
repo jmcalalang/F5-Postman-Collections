@@ -1,0 +1,276 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BIG-IP",
+		"_postman_id": "38ad622b-90de-aa42-1ba5-c3149001546b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Local User REST API",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Selflink of Accounts on F5",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "",
+								"password": "",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/users",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get Properties of F5 Accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "Patch iControl_REST_API_User Group",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "",
+								"password": "",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/roles/iControl_REST_API_User",
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userReferences\": [\n    {\n      \"link\": \"https://localhost/mgmt/shared/authz/users/########USERACCOUNT!#########\"\n    }\n  ]\n}"
+						},
+						"description": "Edit the group with control to icontrol rest"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify your user was added to rest group",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "",
+								"password": "",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authz/roles/iControl_REST_API_User",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Remote User REST API",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Authentication Token",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/shared/authn/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"\",\n    \"password\":\"\",\n    \"loginProviderName\":\"tmos\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Authentication Works",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/ltm",
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-F5-Auth-Token",
+								"value": "{{F5_AD_AUTH_TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "View all Pool's",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/ltm/pool",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "X-F5-Auth-Token",
+								"value": "{{F5_AD_AUTH_TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Lab1.8_pool\",\n    \"monitor\":\"/Common/Lab1.8_monitor\",\n    \"members\": [\"10.1.10.10:80\",\"10.1.10.11:80\"]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Network Creation",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Partition",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/auth/partition",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Lab1.6_pool\",\n    \"monitor\":\"/Common/Lab1.6_monitor\",\n    \"members\": [\"10.1.10.10:80\",\"10.1.10.11:80\"]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Partition",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/auth/partition",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kind\": \"tm:auth:partition:partitionstate\",\n  \"name\": \"Common\",\n  \"fullPath\": \"Common\",\n  \"generation\": 0,\n  \"selfLink\": \"https://localhost/mgmt/tm/auth/partition/Common?ver=12.1.1\",\n  \"defaultRouteDomain\": 0,\n  \"description\": \"Repository for system objects and shared objects.\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get VLAN Info (External)",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/net/vlan/~Common~external",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Lab1.6_pool\",\n    \"monitor\":\"/Common/Lab1.6_monitor\",\n    \"members\": [\"10.1.10.10:80\",\"10.1.10.11:80\"]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create VLAN",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/net/vlan",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kind\": \"tm:net:vlan:vlanstate\",\n  \"name\": \"external\",\n  \"partition\": \"Common\",\n  \"fullPath\": \"/Common/external\",\n  \"generation\": 1,\n  \"selfLink\": \"https://localhost/mgmt/tm/net/vlan/~Common~external?ver=12.1.1\",\n  \"autoLasthop\": \"default\",\n  \"cmpHash\": \"default\",\n  \"dagRoundRobin\": \"disabled\",\n  \"dagTunnel\": \"outer\",\n  \"failsafe\": \"disabled\",\n  \"failsafeAction\": \"failover-restart-tm\",\n  \"failsafeTimeout\": 90,\n  \"ifIndex\": 144,\n  \"learning\": \"enable-forward\",\n  \"mtu\": 1500,\n  \"sflow\": {\n    \"pollInterval\": 0,\n    \"pollIntervalGlobal\": \"yes\",\n    \"samplingRate\": 0,\n    \"samplingRateGlobal\": \"yes\"\n  },\n  \"sourceChecking\": \"disabled\",\n  \"tag\": 4093,\n  \"interfacesReference\": {\n    \"link\": \"https://localhost/mgmt/tm/net/vlan/~Common~external/interfaces?ver=12.1.1\",\n    \"isSubcollection\": true\n  }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Route Domain",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/net/route-domain/~Common~0",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Lab1.6_pool\",\n    \"monitor\":\"/Common/Lab1.6_monitor\",\n    \"members\": [\"10.1.10.10:80\",\"10.1.10.11:80\"]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Route Domain",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/net/route-domain",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kind\": \"tm:net:route-domain:route-domainstate\",\n  \"name\": \"0\",\n  \"partition\": \"Common\",\n  \"fullPath\": \"/Common/0\",\n  \"generation\": 1,\n  \"selfLink\": \"https://localhost/mgmt/tm/net/route-domain/~Common~0?ver=12.1.1\",\n  \"connectionLimit\": 0,\n  \"id\": 0,\n  \"strict\": \"enabled\",\n  \"vlans\": [\n    \"/Common/http-tunnel\",\n    \"/Common/socks-tunnel\",\n    \"/Common/external\",\n    \"/Common/internal\",\n    \"/Common/APM_Full_Policy_cp\"\n  ],\n  \"vlansReference\": [\n    {\n      \"link\": \"https://localhost/mgmt/tm/net/tunnels/tunnel/~Common~http-tunnel?ver=12.1.1\"\n    },\n    {\n      \"link\": \"https://localhost/mgmt/tm/net/tunnels/tunnel/~Common~socks-tunnel?ver=12.1.1\"\n    },\n    {\n      \"link\": \"https://localhost/mgmt/tm/net/vlan/~Common~external?ver=12.1.1\"\n    },\n    {\n      \"link\": \"https://localhost/mgmt/tm/net/vlan/~Common~internal?ver=12.1.1\"\n    },\n    {\n      \"link\": \"https://localhost/mgmt/tm/net/tunnels/tunnel/~Common~APM_Full_Policy_cp?ver=12.1.1\"\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Partition",
+					"request": {
+						"url": "https://{{big_ip_a_mgmt}}/mgmt/tm/auth/partition",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kind\": \"tm:auth:partition:partitionstate\",\n  \"name\": \"NEW ROUTE DOMAIN NAME\",\n  \"fullPath\": \"NEW ROUTE DOMAIN NAME\",\n  \"generation\": 1,\n  \"defaultRouteDomain\": \"NEW ROUTE DOMAIN NUMBER\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
