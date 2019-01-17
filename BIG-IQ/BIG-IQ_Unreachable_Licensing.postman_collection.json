@@ -262,7 +262,7 @@
 					"raw": "{\n    \"licenseText\": \"{{big_iq_license_file}}\"\n}"
 				},
 				"url": {
-					"raw": "https://{{big_ip_mgmt}}/tm/shared/licensing/registration",
+					"raw": "https://{{big_ip_mgmt}}/mgmt/tm/shared/licensing/registration",
 					"protocol": "https",
 					"host": [
 						"{{big_ip_mgmt}}"
